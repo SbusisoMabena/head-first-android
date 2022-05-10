@@ -14,6 +14,7 @@ public class MainActivity extends AppCompatActivity {
 
     private int seconds = 0;
     private boolean running = false;
+    private boolean wasRunning = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,8 +24,8 @@ public class MainActivity extends AppCompatActivity {
         if (savedInstanceState != null) {
             seconds = savedInstanceState.getInt("seconds");
             running = savedInstanceState.getBoolean("running");
+            wasRunning = savedInstanceState.getBoolean("wasRunning");
         }
-
         runTimer();
     }
 
@@ -33,6 +34,20 @@ public class MainActivity extends AppCompatActivity {
         super.onSaveInstanceState(outState);
         outState.putInt("seconds", seconds);
         outState.putBoolean("running", running);
+        outState.putBoolean("wasRunning", wasRunning);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        wasRunning = running;
+        running = false;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        running = wasRunning;
     }
 
     public void onClickStart(View view) {
@@ -40,8 +55,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onClickStop(View view) {
-        running = false;
-    }
+        running = false;}
 
     public void onClickReset(View view) {
         running = false;
