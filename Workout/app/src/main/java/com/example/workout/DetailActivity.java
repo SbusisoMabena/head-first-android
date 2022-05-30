@@ -11,7 +11,9 @@ public class DetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
 
-        WorkoutDetailFragment frag = (WorkoutDetailFragment) getSupportFragmentManager().findFragmentById(R.id.detail_frag);
+        WorkoutDetailFragment frag = (WorkoutDetailFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.detail_frag);
+        assert frag != null;
         frag.setWorkout(1);
     }
 }
