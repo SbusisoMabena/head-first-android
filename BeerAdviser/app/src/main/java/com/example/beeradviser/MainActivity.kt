@@ -1,36 +1,27 @@
-package com.example.beeradviser;
+package com.example.beeradviser
 
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity
+import com.example.beeradviser.BeerExpert
+import android.os.Bundle
+import android.view.View
+import com.example.beeradviser.R
+import android.widget.Spinner
+import android.widget.TextView
+import java.lang.StringBuilder
 
-import android.os.Bundle;
-import android.view.View;
-import android.widget.Spinner;
-import android.widget.TextView;
-
-import java.util.List;
-
-public class MainActivity extends AppCompatActivity {
-
-    private BeerExpert expert = new BeerExpert();
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+class MainActivity : AppCompatActivity() {
+    private val expert = BeerExpert()
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
     }
 
-    public void onClickFindBeer(View view) {
-        Spinner color = findViewById(R.id.color);
-        TextView brands = findViewById(R.id.brands);
-
-        String beerType = String.valueOf(color.getSelectedItem());
-        List<String> brandsList = expert.getBrands(beerType);
-        StringBuilder brandsFormatted = new StringBuilder();
-
-        for (String brand : brandsList) {
-            brandsFormatted.append(brand).append('\n');
-        }
-
-        brands.setText(brandsFormatted);
+    fun onClickFindBeer(view: View?) {
+        val color = findViewById<Spinner>(R.id.color)
+        val brands = findViewById<TextView>(R.id.brands)
+        val beerType = color.selectedItem.toString()
+        val brandsList = expert.getBrands(beerType)
+        val brandsFormatted = brandsList.reduce { str, item -> str + '\n' + item }
+        brands.text = brandsFormatted
     }
 }

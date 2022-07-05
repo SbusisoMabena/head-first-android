@@ -1,20 +1,10 @@
-package com.example.beeradviser;
+package com.example.beeradviser
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class BeerExpert {
-    List<String> getBrands(String color) {
-        List<String> brands = new ArrayList<>();
-
-        if (color.equals("amber")) {
-            brands.add("Jack Amber");
-            brands.add("Red Moose");
-        } else {
-            brands.add("Jail Pale Ale");
-            brands.add("Gout Stout");
+class BeerExpert {
+    fun getBrands(color: String): List<String> {
+        return when (color) {
+            "amber" -> listOf("Jack Amber", "Red Moose")
+            else -> listOf("Jail Pale Ale", "Gout Stout")
         }
-
-        return brands;
     }
 }
